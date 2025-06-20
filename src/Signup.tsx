@@ -36,7 +36,7 @@ const Signup: React.FC = () => {
     if (Object.keys(validationErrors).length === 0) {
       setLoading(true);
       try {
-        const res = await fetch('/api/signup', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/signup`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(form),

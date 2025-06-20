@@ -33,7 +33,7 @@ const ProductForm: React.FC = () => {
   useEffect(() => {
     if (id) {
       setLoading(true);
-      fetch(`/api/products/${id}`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/products/${id}`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch product');
           return res.json();
@@ -92,13 +92,13 @@ const ProductForm: React.FC = () => {
         };
         let res;
         if (id) {
-          res = await fetch(`/api/products/${id}`, {
+          res = await fetch(`${import.meta.env.VITE_API_URL}/api/products/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
           });
         } else {
-          res = await fetch('/api/products', {
+          res = await fetch(`${import.meta.env.VITE_API_URL}/api/products`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
