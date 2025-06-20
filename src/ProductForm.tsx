@@ -16,6 +16,11 @@ interface ProductFormErrors {
   images?: string;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+if (!API_URL) {
+  throw new Error('VITE_API_URL is not set. Please set it in your environment variables.');
+}
+
 const ProductForm: React.FC = () => {
   const [form, setForm] = useState<ProductFormValues>({
     sku: '',
@@ -33,7 +38,7 @@ const ProductForm: React.FC = () => {
   useEffect(() => {
     if (id) {
       setLoading(true);
-      fetch(`${import.meta.env.VITE_API_URL}/api/products/${id}`)
+      fetch(`${API_URL}/api/products/${id}`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch product');
           return res.json();
@@ -92,13 +97,13 @@ const ProductForm: React.FC = () => {
         };
         let res;
         if (id) {
-          res = await fetch(`${import.meta.env.VITE_API_URL}/api/products/${id}`, {
+          res = await fetch(`${API_URL}/api/products/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
           });
         } else {
-          res = await fetch(`${import.meta.env.VITE_API_URL}/api/products`, {
+          res = await fetch(`${API_URL}/api/products`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),

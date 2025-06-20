@@ -16,6 +16,10 @@ const ProductList: React.FC = () => {
   const navigate = useNavigate();
   const API_URL = import.meta.env.VITE_API_URL;
 
+  if (!API_URL) {
+    throw new Error('VITE_API_URL is not set. Please set it in your environment variables.');
+  }
+
   const fetchProducts = async () => {
     setLoading(true);
     setError(null);

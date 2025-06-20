@@ -18,6 +18,11 @@ const Signup: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+  if (!API_URL) {
+    throw new Error('VITE_API_URL is not set. Please set it in your environment variables.');
+  }
+
   const validate = (): SignupErrors => {
     const newErrors: SignupErrors = {};
     if (!form.username) newErrors.username = 'Username is required';
@@ -36,7 +41,7 @@ const Signup: React.FC = () => {
     if (Object.keys(validationErrors).length === 0) {
       setLoading(true);
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/signup`, {
+        const res = await fetch(`${API_URL}/api/signup`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(form),
